@@ -178,7 +178,7 @@ extension Session: VisitDelegate {
     }
 
     func visitWillStart(_ visit: Visit) {
-        guard !visit.isPageRefresh else { return }
+        guard !visit.isPageRefresh, !visit.options.acceptsStreamResponse else { return }
         
         visit.visitable.showVisitableScreenshot()
         activateVisitable(visit.visitable)

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct VisitResponse: Codable {
+public struct VisitResponse: Codable, Hashable {
     public let statusCode: Int
     public let responseHTML: String?
     
