@@ -166,6 +166,7 @@ extension Session: VisitDelegate {
 
     func visitRequestDidFinish(_ visit: Visit) {
         delegate?.sessionDidFinishRequest(self)
+        completeNavigationForCurrentVisit()
     }
 
     func visit(_ visit: Visit, requestDidFailWithError error: Error) {
