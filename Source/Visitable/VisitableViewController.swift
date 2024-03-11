@@ -2,8 +2,24 @@ import UIKit
 import WebKit
 
 open class VisitableViewController: UIViewController, Visitable {
-    open weak var visitableDelegate: VisitableDelegate?
-    open var visitableURL: URL!
+    open weak var visitableDelegate: VisitableDelegate?    
+    open var urlResolver: URLResolver!
+    open var visitableURL: URL! {
+        get {
+            urlResolver.resolvedURL
+        }
+        set {
+            urlResolver = VisitableURL(url: newValue, in: visitableView)
+        }
+    }
+    open var currentURL: URL? {
+        get {
+            urlResolver.currentURL
+        }
+        set {
+            urlResolver.currentURL = newValue
+        }
+    }
 
     public convenience init(url: URL) {
         self.init()

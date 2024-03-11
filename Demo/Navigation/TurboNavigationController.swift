@@ -41,8 +41,14 @@ class TurboNavigationController : UINavigationController {
         // - Create view controller appropriate for url/properties
         // - Navigate to that with the correct presentation
         // - Initiate the visit with Turbo
-        let viewController = makeViewController(for: url, properties: properties)
-        navigate(to: viewController, action: options.action, properties: properties)
+        let viewController: UIViewController
+        if options.acceptsStreamResponse, let visitable = topViewController as? VisitableViewController {
+            viewController = visitable
+            visitable.currentURL = url
+        } else {
+            viewController = makeViewController(for: url, properties: properties)
+            navigate(to: viewController, action: options.action, properties: properties)
+        }
         visit(viewController: viewController, with: options, modal: isModal(properties))
     }
 }

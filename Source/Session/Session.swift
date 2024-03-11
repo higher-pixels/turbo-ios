@@ -157,6 +157,10 @@ public class Session: NSObject {
         
         topmostVisit = visit
     }
+    
+    private func visitIsPageRefresh(_ visit: Visit) -> Bool {
+        visit.isPageRefresh || visit.options.acceptsStreamResponse
+    }
 }
 
 extension Session: VisitDelegate {
@@ -178,7 +182,7 @@ extension Session: VisitDelegate {
     }
 
     func visitWillStart(_ visit: Visit) {
-        guard !visit.isPageRefresh, !visit.options.acceptsStreamResponse else { return }
+        guard !visitIsPageRefresh(visit) else { return }
         
         visit.visitable.showVisitableScreenshot()
         activateVisitable(visit.visitable)
@@ -186,7 +190,7 @@ extension Session: VisitDelegate {
 
     func visitDidStart(_ visit: Visit) {
         guard !visit.hasCachedSnapshot else { return }
-        guard !visit.isPageRefresh else { return }
+        guard !visitIsPageRefresh(visit) else { return }
         
         visit.visitable.showVisitableActivityIndicator()
     }
