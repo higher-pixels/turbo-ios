@@ -48,6 +48,7 @@ open class VisitableViewController: UIViewController, Visitable {
 
     open func visitableDidRender() {
         title = visitableView.webView?.title
+        currentURL = nil
     }
     
     open func showVisitableActivityIndicator() {
